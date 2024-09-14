@@ -1,0 +1,454 @@
+use movies;
+
+create table Directors (
+director_id INT PRIMARY KEY auto_increment,
+name varchar (225) not null,
+dob date,
+nationality varchar (100),
+awards text);
+
+create table Movies123 ( 
+movie_id int primary key auto_increment,
+title varchar (225) not null,
+release_year year not null,
+genre varchar (100) not null,
+language varchar (50) default "Telugu",
+duration_minutes int not null,
+rating decimal (3,1),
+director_id int,
+foreign key (director_id) references Directors(director_id)
+);
+
+create table Actors ( 
+actor_id int primary key auto_increment,
+name varchar (225) not null,
+dob date,
+genre char(1),
+nationality varchar(100),
+debut_year year
+);
+
+create table Movie_Cast (
+movie_id int,
+actor_id int,
+role_name varchar(255),
+screen_time_minutes int,
+foreign key (movie_id) references Movies123(movie_id),
+foreign key (actor_id) references Actors(actor_id),
+primary key(movie_id,actor_id));
+
+create table Box_Office (
+movie_id int , budget bigint,
+box_office_collection bigint,
+domestic_collection bigint,
+international_collection bigint,
+foreign key (movie_id) references Movies123(movie_id),
+primary key(movie_id));
+
+show tables;
+
+insert into Directors(name,dob,nationality,awards) values
+('vishnu','2003-08-11','indian','no awards');
+
+insert into Directors(name,dob,nationality,awards) values
+('vishnu123','2003-08-11','indian','no awards');
+
+select * from Directors;
+
+insert into Directors (name,dob,nationality,awards) values
+('S.S Rajamouli','1973-10-10','indian','Padma Shri, Nandi Award'),
+('Trivikram Srinivas','1971-11-07','indian','Nandi Award, SIIMA Award'),
+('Puri Jagannath','1966-09-26','indian','Nandi Award, Filmfare Award'),
+('Sukumar','1970-01-11','indian','Filmfare Award, Nandi Award'),
+('V.V Vinayak','1974-10-09','indian','Nandi Award'),
+('Koratala Siva','1975-06-15','indian',null),
+('Boyapati Srinu','1971-04-01','indian','Nandi Award'),
+('Harish Shankar','1982-03-31','indian',null),
+('Srinu Vitla','1972-09-24','indian',null),
+('Gautham Vasudev Menon','1973-02-25','indian','Nandi Award');
+
+
+insert into Movies123 (title,release_year,genre,duration_minutes,rating,
+director_id) values 
+('Baahubali:The Beginning',2015,'Action',159,8.1,1),
+('Ala Vaikuntapurramuloo',2020,'Drama',165,7.8,2),
+('Pokiri',2006,'Action',155,7.9,3),
+('Rangasthalam',2018,'Drama',179,8.4,4),
+('Tagore',2003,'Action',180,7.5,5),
+('Bharath Ane Nenu',2018,'Political',173,7.7,6),
+('Sarrinodu',2016,'Action',160,6.8,7),
+('Gabbar Singh',2012,'Action',152,7.2,8),
+('Dookudu',2011,'Comedy',175,7.5,9),
+('Yennai Arindhaal',2015,'Action',176,7.3,10);
+
+
+insert into Actors (name,dob,nationality,debut_year) values
+('Prabhas','1979-10-23','Indian',2002),
+('Allu Arjun','1983-04-08','Indian',2003),
+('Mahesh Babu','1975-08-09','Indian',1999),
+('Ram Charan','1985-03-27','Indian',2007),
+('Chiranjeevi','1955-08-22','Indian',1978),
+('Jr.NTR','1983-05-20','Indian',1996),
+('Pawan Kalyan','1971-09-02','Indian',1996),
+('Nagarjuna','1959-02-24','Indian',2008),
+('Nani','1984-02-24','Indian',2008),
+('Samantha Ruthu Prabhu','1987-04-28','Indian',2010);
+
+
+insert into Movie_Cast (movie_id,actor_id,role_name,screen_time_minutes) 
+values (1,1,'Shivudu',120),
+(2,2,'Bantu',140),
+(3,3,'Pandu',130),
+(4,4,'Chitti Babu',150),
+(5,5,'Tagore',160),
+(6,6,'Bharath',145),
+(7,2,'Gana',135),
+(8,7,'Gabbar singh',175),
+(9,3,'Ajay',150),
+(10,9,'Satyadev',160);
+
+
+insert into Box_Office (movie_id,budget,box_office_collection,
+domestic_collection,international_collection) values
+(1,1800000000,6000000000,450000000,1500000000),
+(2,10000000000,2700000000,21000000000,600000000),
+(3,120000000000,660000000000,5000000000,160000000),
+(4,15000000000,3650000000000,380000000000,85000000000),
+(5,20000000000,30000000000,2500000000,50000000000),
+(6,120000000,45000000000,3400000000000,78000000000),
+(7,56000000000,860000000000,400000000,4500000000),
+(8,3400000000000,5600000000000,45000000,340000000),
+(9,35000000000,1950000000,56000000000,340000000000),
+(10,500000000,85000000000,70000000000,1500000000000);
+
+select * from Box_Office;
+select budget,box_office_collection from Box_Office;
+
+create table books (
+book_id int,
+title varchar(100),
+author varchar(100),
+genre varchar(100),
+price int,
+published_year year,
+in_stock boolean);
+
+insert into books values
+(20,'abc','vishnu','science fiction',2000,2024,true);
+insert into books values
+(20,'abc','vishnu123','science fiction',2000,2024,false);
+select title,published_year,in_stock from books;
+select * from books;
+
+
+create table Employees (
+employee_id int primary key,
+name varchar(50) not null,
+salary decimal(10,2));
+
+insert into Employees values(
+1,'vishnu',10000);
+insert into Employees values(
+2,'',10000);
+
+insert into Employees (employee_id,salary) values
+(1,10000);
+insert into Employees (name,salary) values
+('vishnu',10000);
+
+create table Users (
+user_id int primary key,
+user_name varchar(100) unique);
+
+insert into Users values(1,'vishnu');
+insert into Users values(2,'vishnu');
+insert into Users values(2,'vishnu1');
+
+create table orders (
+order_id int primary key,
+order_date date default'2024-10-20');
+insert into orders values (100,'2023-04-05');
+select * from orders;
+
+insert into orders (order_id) values(200);
+select * from orders;
+
+create table products (
+prod_id int primary key,
+price int,
+quantity int check(quantity>0)
+);
+insert into products (prod_id,price,quantity) values(1,100,10);
+insert into products (prod_id,price,quantity) values(1,100,-1);
+select * from products;
+
+SELECT title,release_year FROM Movies123 WHERE release_year=2011;
+SELECT title,release_year FROM Movies123 WHERE release_year>2011;
+
+
+/*Arithmetic*/
+SELECT movie_id,box_office_collection-budget as profit_or_loss from Box_Office;
+SELECT movie_id,budget,budget-budget,budget*2 as doubled_budget FROM Box_Office;
+select * from Actors;
+select * from Actors where debut_year!=2001;
+select title,release_year from Movies123 where language='Telugu' and release_year=2012;
+select title,release_year from Movies123 where language='Telugu' or release_year=2012;
+insert into Movies123(title,release_year,genre,language,duration_minutes,rating) values('Dabang',2012,'Action','Hindi',140,9.0);
+select title,release_year from Movies123 where language='Telugu' or release_year=2012;
+select * from Movies123 where not language='Telugu';
+insert into Movies123(title,release_year,genre,language,duration_minutes,rating) values('Premam',2012,'Romance','Malayalam',140,9.0);
+select * from Movies123 where language in ('Malayalam');
+select * from Movies123 where language in ('Malayalam','Hindi');
+select * from Movies123 where language ='Malayalam';
+select title,release_year from Movies123 where release_year between 2015 and 2022; 
+select * from Movies123;
+
+select * from Movies123 where title like 'Baahu%';
+select * from Movies123 where title like '%ubali:The%';
+select * from Movies123 where title like '%ubali:The';
+select * from Movies123 where title like 'P_kiri';
+select * from Movies123 where title like 'P_k_i';
+select * from Movies123 where title like 'P__kiri';
+select * from Movies123;
+Select title,release_year  FROM Movies123 ORDER BY release_year DESC;
+Select title,release_year  FROM Movies123 ORDER BY release_year ASC;
+SELECT title,release_year from Movies123 limit 2;
+SELECT title,release_year from Movies123 limit 11;
+SELECT title,release_year from Movies123 limit 10;
+
+/*Aggregate Function*/
+
+select count(*) from Movies123;
+select count(*) as total_count from Movies123;
+select max(budget) from Box_Office;
+select max(budget) as max_budget from Box_Office;
+select min(budget) from Box_Office;
+select min(budget) as min_budget from Box_Office;
+select sum(budget) from Box_Office;
+select sum(box_office_collection) as tottal_sum from Box_Office;
+select avg(rating) from Movies123;
+
+select language,sum(box_office_collection) as total_collection 
+from Movies123 m join Box_Office b on m.movie_id=b.movie_id 
+group by language;
+
+select * from Movies123;
+insert into Box_Office (movie_id,budget,box_office_collection,
+domestic_collection,international_collection) values
+(11,18000000,60000000,4500000,15000000),
+(12,1800000,6000000,45000000,150000);
+select language,sum(box_office_collection) as total_collection from
+Movies123 m join Box_Office b on m.movie_id=b.movie_id group by language;
+
+/*works like whwere function*/
+
+select language,sum(box_office_collection) as total_collection  from
+Movies123 m JOIN Box_Office b on m.movie_id=b.movie_id group by language 
+HAVING sum(box_office_collection)>50000000000;
+select *  from Movies123;
+update Movies123 set rating=3.5 where title='pokiri';/*safe mode is on now*/
+SET SQL_SAFE_UPDATES=0;/*SAFE MOPDE OFF NOW*/
+SET SQL_SAFE_UPDATES=1;
+update Movies123 set rating=3.5 where title='pokiri';
+SET SQL_SAFE_UPDATES=0;
+
+delete from Movies123 where title='Pokiri';/* Its a foreign key we cannot delete*/
+create table dummy1 (
+name varchar(100));
+insert into dummy1 values('vishnu');
+select * from dummy1;
+delete from dummy1 where name='vishnu';
+select * from dummy1;
+
+
+
+
+create database devara1;
+use devara1;
+create table Movies1 ( 
+movie_id int primary key auto_increment,
+title varchar (225),
+release_year year,
+genre varchar (100),
+language varchar (50) default "Telugu",
+duration_minutes int,
+rating decimal (3,1)
+);
+create table Box_Office12 (
+box_office_id int primary key auto_increment,
+movie_id int , budget bigint,
+box_office_collection bigint,
+domestic_collection bigint,
+foreign key (movie_id) references Movies1(movie_id)
+on delete cascade
+);
+
+/*Inserting data*/
+
+insert into Movies1(title,release_year,genre,language,duration_minutes,rating)
+values ('movie1',2020,'Action','telugu',150,7.8),
+('movie2',2022,'Action','telugtu',155,7.9),  
+('movie3',2023,'Action','telugu',150,7.9),
+('movie4',2021,'Action','telugu',159,7.0),
+('movie5',2023,'Action','telugu',1180,9.9); 
+
+insert into Box_Office12 (movie_id,budget) values
+(1,2500000000),
+(2,544000000),
+(3,6000000000),
+(4,560000000),
+(5,6700000000000);
+
+delete from Movies1 where title='movie2';
+
+create database pushpa1;
+use pushpa1;
+
+create table Movies1 ( 
+movie_id int primary key auto_increment,
+title varchar (225),
+release_year year,
+genre varchar (100),
+language varchar (50) default "Telugu",
+duration_minutes int,
+rating decimal (3,1)
+);
+
+create table Box_Office12 (
+box_office_id int primary key auto_increment,
+movie_id int , budget bigint,
+box_office_collection bigint,
+domestic_collection bigint,
+foreign key (movie_id) references Movies1(movie_id)
+on update cascade
+);
+
+insert into Movies1(title,release_year,genre,language,duration_minutes,rating)
+values ('movie1',2020,'Action','telugu',150,7.8),
+('movie2',2022,'Action','telugtu',155,7.9),  
+('movie3',2023,'Action','telugu',150,7.9),
+('movie4',2021,'Action','telugu',159,7.0),
+('movie5',2023,'Action','telugu',1180,9.9); 
+
+insert into Box_Office12 (movie_id,budget) values
+(1,2500000000),
+(2,544000000),
+(3,6000000000),
+(4,560000000),
+(5,6700000000000);
+
+
+show tables;
+SET SQL_SAFE_UPDATES=0;
+update Movies1 set movie_id=143 where title='movie1';
+select * from Movies1;
+
+/*Other Cascading Options
+1.SET NULL
+2.SET DEFAULT
+3.NO ACTION
+4.RESTRICT*/
+
+select * from Movies1;
+Alter table Movies1 add director_id int;
+select * from Movies1;
+
+alter table Movies1 modify rating decimal(4,2);
+select * from Movies1;
+
+alter table Movies1 drop column director_id;
+select * from Movies1;
+
+show tables;
+DROP table box_office12;
+
+rename table Movies1 to Films;
+show tables;
+
+select * from Films;
+truncate table Films;
+select * from Films;
+
+/*INNER JOIN*/
+
+drop table films;
+
+create table movies (
+movie_id int, title varchar(20),director_id int);
+create table directors (
+director_id int,name varchar(20));
+insert into movies values
+(1,'RRR',101),
+(2,'Pushpa',102),
+(3,'KGF',103);
+
+insert into directors values
+(101,'s.s rajamouli'),
+(102,'sukumar'),
+(104,'prashanth neel');
+
+select * from movies;
+select * from directors;
+
+select * from  movies m inner join directors d
+on m.director_id=d.director_id;
+
+select m.title,d.name from  movies m inner join directors d
+on m.director_id=d.director_id;
+
+/*LEFT JOIN*/
+
+select m.title,d.name from  movies m left join directors d
+on m.director_id=d.director_id;
+
+select * from  movies m left join directors d
+on m.director_id=d.director_id;
+
+/*RIGHT JOIN*/
+select m.title,d.name from  movies m right join directors d
+on m.director_id=d.director_id;
+
+/*CROSS JOIN*/
+
+select * from movies m cross join directors d;
+
+/*SELF JOIN*/
+
+select a.title as movie1,b.title as movie2,a.release_year from 
+movies a ,movies b where a.release_yaer=b.release_year and a.movie_id;
+Use movies;
+
+/*UNION*/
+
+create database union_test;
+use union_test;
+create table telugu_movies (
+movie_id int,
+title varchar(20),
+release_year year
+);
+insert into telugu_movies values
+(1,'RRR',2022),
+(2,'Pushpa',2021),
+(3,'KGF',2018);
+create table hindi_movies (
+movie_id int,
+title varchar(20),
+release_year year
+);
+insert into hindi_movies values 
+(1,'Dangal',2016),
+(2,'Bajarangi Bhaijaan',2015),
+(3,'KGF',2018);
+
+select title,release_year from telugu_movies
+union
+select title,release_year from hindi_movies;
+
+select title,release_year from telugu_movies
+union all /*-->Allows Duplicates*/
+select title,release_year from hindi_movies;
+
+use movies;
+select * from Box_Office;
+select budget from Box_Office where budget>(select avg(budget) from Box_Office);
